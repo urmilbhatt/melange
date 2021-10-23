@@ -16,27 +16,16 @@ import Logo from "./components/shared/Logo";
 import "./index.css";
 
 const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
-const ADMIN_SECRET = process.env.REACT_APP_ADMIN_SECRET;
 
 const httpLink = new HttpLink({
-  uri: `https://${GRAPHQL_ENDPOINT}`,
-  headers: {
-    "content-type": "application/json",
-    'x-hasura-admin-secret': `${ADMIN_SECRET}`
-  }
+  uri: `https://${GRAPHQL_ENDPOINT}`
 });
 
 const wsLink = new WebSocketLink({
   uri: `wss://${GRAPHQL_ENDPOINT}`,
   options: {
     reconnect: true,
-    connectionParams: {
-      headers: {
-        "content-type": "application/json",
-        'x-hasura-admin-secret': `${ADMIN_SECRET}`
-      }
     }
-  },
 });
 
 const splitLink = split(
